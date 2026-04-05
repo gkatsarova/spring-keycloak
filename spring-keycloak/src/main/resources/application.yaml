@@ -1,3 +1,25 @@
 spring:
-  application:
-    name: spring-keycloak
+  datasource:
+    url: jdbc:h2:mem:todoDb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: my-mvc-client
+            client-secret: ps11tiHVuk8p1wtI78RGXF345E9Yzz95
+            scope: openid,profile,email
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:7080/realms/MyAppRealm
+server:
+  port: 8080
